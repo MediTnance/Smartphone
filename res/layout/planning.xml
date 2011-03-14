@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : planning.xml
+    Created on : 12 mars 2011, 13:16
+    Author     : jeremie
+    Description:
+        Purpose of the document follows.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <ScrollView android:id="@+id/ScrollView" 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content">
+                    
+        <TableLayout android:id="@+id/TableLayout" 
+                     android:layout_width="fill_parent" 
+                     android:layout_height="wrap_content"
+                     android:stretchColumns="0">
+
+          <TableRow android:id="@+id/TableRow01" 
+                    android:layout_width="wrap_content" 
+                    android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/TextView01" 
+                      android:layout_width="0px" 
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:text="Heure" />
+
+            <TextView android:id="@+id/TextView02" 
+                      android:layout_width="0px" 
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:text="Employé"/>
+                      
+            <TextView android:id="@+id/TextView03" 
+                      android:layout_width="0px" 
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:text="Client"/>        
+
+          </TableRow>
+
+        <!--  <TableRow android:id="@+id/TableRow02" 
+                    android:layout_width="wrap_content" 
+                    android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/TextView03" 
+                      android:layout_width="wrap_content" 
+                      android:layout_height="wrap_content" 
+                      android:text="textfield 2-1"/>
+
+            <TextView android:id="@+id/TextView04" 
+                      android:layout_width="wrap_content" 
+                      android:layout_height="wrap_content" 
+                      android:text="textfield 2-2"/>
+
+          </TableRow>-->
+
+        </TableLayout>
+    </ScrollView>
+</LinearLayout>
