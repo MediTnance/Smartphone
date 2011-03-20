@@ -1,37 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-    Document   : client.xml
-    Created on : 11 mars 2011, 12:30
+    Document   : intervention.xml
+    Created on : 20 mars 2011, 17:09
     Author     : jeremie
     Description:
         Purpose of the document follows.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/layout"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
-
-    <TextView android:id="@+id/searchText"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:text="Recherche d'un client"
-              android:layout_weight="1"/>
-              
               
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:orientation="horizontal"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content">
                 
-        <TextView android:id="@+id/firstnameText"
+        <TextView android:id="@+id/hourText"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:text="Prénom"
-              android:layout_weight="3" />
+              android:text="Heure de fin"
+              android:layout_weight="1" />
               
-        <EditText android:id="@+id/fistnameEditText"
+        <EditText android:id="@+id/hourEditText"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:textSize="13px"
@@ -44,27 +36,42 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content">
                 
-        <TextView android:id="@+id/lastnameText"
+        <TextView android:id="@+id/priceText"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:layout_weight="3"
-              android:text="Nom"/>
+              android:layout_weight="2"
+              android:text="Coût"/>
               
-        <EditText android:id="@+id/lastnameEditText"
+        <EditText android:id="@+id/priceEditText"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:textSize="13px"
 		android:cursorVisible="false"
                 android:layout_weight="1"/>
     </LinearLayout>
+    
+    <TextView android:id="@+id/commentText"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_weight="2"
+              android:text="Remarques"/>
+              
+    <EditText android:id="@+id/commentEditText"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:cursorVisible="false"
+                android:gravity="top"
+                android:singleLine="false"
+                android:lines="4"
+                android:layout_weight="1"/>
                 
-    <Button android:id="@+id/button1"
-            android:text="Chercher"
+    <Button android:id="@+id/buttonIntervention"
+            android:text="Valider"
             android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"/>
             
-    <TextView android:id="@+id/clientText"
+  <!--  <TextView android:id="@+id/clientText"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:text=""/>
+              android:text=""/>-->
 </LinearLayout>

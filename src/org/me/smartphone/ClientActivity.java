@@ -10,8 +10,10 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,21 +34,21 @@ public class ClientActivity extends Activity {
     EditText firstnameEditText;
     TextView lastnameText;
     EditText lastnameEditText;
+    LinearLayout main;
     ClientDAO client = new ClientDAO();
-//    MessageBox messageBox = new MessageBox();
+    MessageBox messageBox = new MessageBox();
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.client);
-
+        main = (LinearLayout)findViewById(R.id.layout);
         this.firstnameText = (TextView) findViewById(R.id.firstnameText);
         this.firstnameEditText = (EditText) findViewById(R.id.fistnameEditText);
         this.lastnameText = (TextView) findViewById(R.id.lastnameText);
         this.lastnameEditText = (EditText) findViewById(R.id.lastnameEditText);
         button1 = (Button) findViewById(R.id.button1);
-
 
 
         button1.setOnClickListener(new View.OnClickListener()  {
@@ -69,6 +71,17 @@ public class ClientActivity extends Activity {
                             }
                             TextView clientText = (TextView)findViewById(R.id.clientText);
                             clientText.setText(clientI);
+//                            Button furnitures = new Button();
+//                            furnitures.setText("Liste matériel");
+//
+//                            furnitures.setOnClickListener(new OnClickListener()  {
+//
+//                                @Override
+//                                public void onClick(View v) {
+//                                    // TODO Auto-generated method stub
+//                                }
+//                            });
+//                            main.addView(furnitures);
                         } catch (JSONException ex) {
                             Logger.getLogger(Meditnance.class.getName()).log(Level.SEVERE, null, ex);
                         }

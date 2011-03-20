@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : map.xml
+    Created on : 19 mars 2011, 03:02
+    Author     : jeremie
+    Description:
+        Purpose of the document follows.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    <TextView android:id="@+id/description" android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+                <Button android:id="@+id/buttonBack"
+            android:text="Retour"
+            android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"/>
+    <com.google.android.maps.MapView android:id="@+id/mapview" 
+                 android:layout_width="fill_parent"
+                 android:layout_height="fill_parent"
+                 android:clickable="true"
+                 android:apiKey="0zDBFRKINghJJoYBOBYfBaX-qwtreGtzV-ouvGg"
+                 />
+                 
+    
+</LinearLayout>

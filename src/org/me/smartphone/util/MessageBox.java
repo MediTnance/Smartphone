@@ -14,8 +14,8 @@ import android.content.DialogInterface;
  */
 public class MessageBox extends Activity {
 
-    public void Show(String title, String message) {
-        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+    public void Show(String title, String message, Activity a) {
+        AlertDialog alertDialog = new AlertDialog.Builder(a).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
         alertDialog.setButton("OK", new DialogInterface.OnClickListener()   {

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : piece.xml
+    Created on : 16 mars 2011, 21:12
+    Author     : jeremie
+    Description:
+        Purpose of the document follows.
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+    <TextView android:id="@+id/commandPieceText"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="Commander une pièce"
+              android:layout_weight="1"/>
+        
+   <Spinner 
+        android:id="@+id/spinnerPiece"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:drawSelectorOnTop="true"
+        android:prompt="@string/defaut"/>
+        
+   <Button android:id="@+id/buttonCommand"
+            android:text="Commander"
+            android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"/>
+</LinearLayout>

@@ -12,12 +12,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.TabHost;
-import android.widget.TextView;
-import android.widget.Toast;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  *
@@ -44,11 +38,11 @@ public class Meditnance extends TabActivity {
         spec = tabHost.newTabSpec("clients").setIndicator("Clients").setContent(intent);
         tabHost.addTab(spec);
 
-        intent = new Intent().setClass(this, PlanningActivity.class);
-        spec = tabHost.newTabSpec("interventions").setIndicator("Interventions").setContent(intent);
-        tabHost.addTab(spec);
+//        intent = new Intent().setClass(this, InterventionActivity.class);
+//        spec = tabHost.newTabSpec("interventions").setIndicator("Interventions").setContent(intent);
+//        tabHost.addTab(spec);
 
-        intent = new Intent().setClass(this, ClientActivity.class);
+        intent = new Intent().setClass(this, PieceActivity.class);
         spec = tabHost.newTabSpec("pieces").setIndicator("Pièces").setContent(intent);
         tabHost.addTab(spec);
 
