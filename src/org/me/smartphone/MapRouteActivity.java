@@ -10,6 +10,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -28,6 +30,12 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.me.smartphone.application.GestionSmartphone;
 import org.me.smartphone.application.Road;
 import org.me.smartphone.application.RoadProvider;
 
@@ -45,21 +53,35 @@ public class MapRouteActivity extends MapActivity {
     private Road mRoad;
     double fromLat, fromLon;
     MessageBox messageBox = new MessageBox();
+    private GestionSmartphone smartphoneManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        smartphoneManager = new GestionSmartphone(this);
         setContentView(R.layout.map);
+        
+        try {
         mapView = (MapView) findViewById(R.id.mapview);
         buttonBack = (Button) findViewById(R.id.buttonBack);
         mapView.setBuiltInZoomControls(true);
+        Bundle bundle = this.getIntent().getExtras();
+        String idInter = bundle.getString("id");
+        JSONObject jsono = smartphoneManager.getInterventionById(idInter);
+        JSONObject clientJSON = null;
+        String address = null;
+            clientJSON = smartphoneManager.getClientById(jsono.getString("client"));
+            address = clientJSON.getString("address");
+         } catch (Exception e) {
+            Log.d("Erreur", "Impossible...");
+        }
 
 //        new Thread()  {
 //
 //            @Override
 //            public void run() {
 
-        try {
+        try{
             LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 //                fromLon = location.getLongitude();
@@ -68,6 +90,10 @@ public class MapRouteActivity extends MapActivity {
             fromLat = 48.83;
 
             double toLat = 48.833, toLon = 2.333;
+//            Geocoder geo = new Geocoder(this, Locale.getDefault());
+//            Address clientAddress = geo.getFromLocationName("50 avenue de Stalingrad Villejuif, France",1).get(0);
+//            double toLat = clientAddress.getLatitude();
+//            double toLon = clientAddress.getLongitude();
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListener);
             String url = RoadProvider.getUrl(fromLat, fromLon, toLat, toLon);
             InputStream is = getConnection(url);

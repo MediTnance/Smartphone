@@ -10,7 +10,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -35,7 +34,7 @@ public class ClientActivity extends Activity {
     TextView lastnameText;
     EditText lastnameEditText;
     LinearLayout main;
-    ClientDAO client = new ClientDAO();
+    ClientDAO client = new ClientDAO(this);
     MessageBox messageBox = new MessageBox();
 
     /** Called when the activity is first created. */
@@ -71,17 +70,6 @@ public class ClientActivity extends Activity {
                             }
                             TextView clientText = (TextView)findViewById(R.id.clientText);
                             clientText.setText(clientI);
-//                            Button furnitures = new Button();
-//                            furnitures.setText("Liste matériel");
-//
-//                            furnitures.setOnClickListener(new OnClickListener()  {
-//
-//                                @Override
-//                                public void onClick(View v) {
-//                                    // TODO Auto-generated method stub
-//                                }
-//                            });
-//                            main.addView(furnitures);
                         } catch (JSONException ex) {
                             Logger.getLogger(Meditnance.class.getName()).log(Level.SEVERE, null, ex);
                         }

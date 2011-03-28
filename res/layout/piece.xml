@@ -17,6 +17,7 @@
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:text="Commander une pièce"
+              android:gravity="center"
               android:layout_weight="1"/>
         
    <Spinner 

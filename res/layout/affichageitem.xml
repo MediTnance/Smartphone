@@ -12,47 +12,53 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     >
-	    <TextView android:id="@+id/heure"
+    <TextView android:id="@+id/heure"
 	         android:layout_width="fill_parent"
 	         android:layout_height="fill_parent"
 	         />
  
-	    <TextView android:id="@+id/employe"
+    <TextView android:id="@+id/employe"
 	         android:layout_width="fill_parent"
 	         android:layout_height="fill_parent"
 	         />
                  
-                 <TextView android:id="@+id/client"
+    <TextView android:id="@+id/client"
 	         android:layout_width="fill_parent"
 	         android:layout_height="fill_parent"
 	         />
                  
-                 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView android:id="@+id/idIntervention"
+	         android:layout_width="fill_parent"
+	         android:layout_height="fill_parent"
+                 android:visibility="gone" 
+	         />
+                 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                 android:orientation="horizontal"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:paddingLeft="10px">
                                     
-                                    <Button android:id="@+id/buttonMap"
-                                            android:text="Afficher la carte"
+        <Button android:id="@+id/buttonMap"
+                                            android:text="Afficher carte"
                                             android:layout_width="fill_parent"
                                             android:layout_height="wrap_content"
                                             android:onClick="mapHandler"
                                             android:layout_weight="1"/>
                                             
-                                    <Button android:id="@+id/buttonUpdate"
+        <Button android:id="@+id/buttonUpdate"
                                             android:text="Mettre à jour"
                                             android:layout_width="fill_parent"
                                             android:layout_height="wrap_content"
                                             android:onClick="updateInterventionHandler"
                                             android:layout_weight="1"/>
                                             
-                                    <Button android:id="@+id/buttonDetails"
-                                            android:text="Voir les détails"
+        <Button android:id="@+id/buttonDetails"
+                                            android:text="Voir détails"
                                             android:layout_width="fill_parent"
                                             android:layout_height="wrap_content"
                                             android:onClick="detailsInterventionHandler"
                                             android:layout_weight="1"/>
-                </LinearLayout>
+    </LinearLayout>
  
 </LinearLayout>

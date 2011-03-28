@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.me.smartphone.DAO.InterventionDAO;
 import org.me.smartphone.util.MessageBox;
 
@@ -21,11 +23,12 @@ import org.me.smartphone.util.MessageBox;
 public class InterventionActivity extends Activity {
 
     Button buttonIntervention;
+    Button buttonCancelIntervention;
     EditText hourEditText;
     EditText priceEditText;
     EditText commentEditText;
     String id = "";
-    private InterventionDAO interventionDAO = new InterventionDAO();
+    private InterventionDAO interventionDAO;
     MessageBox messageBox = new MessageBox();
     Activity _this;
 
@@ -35,18 +38,30 @@ public class InterventionActivity extends Activity {
         super.onCreate(icicle);
 
         setContentView(R.layout.intervention);
-        Log.d("RAAAAAAAAAAAAAAAAAh", "hu");
         _this = this;
+        interventionDAO = new InterventionDAO(this);
         buttonIntervention = (Button) findViewById(R.id.buttonIntervention);
+        buttonCancelIntervention = (Button)findViewById(R.id.buttonCancelIntervention);
         hourEditText = (EditText) findViewById(R.id.hourEditText);
         priceEditText = (EditText) findViewById(R.id.priceEditText);
         commentEditText = (EditText) findViewById(R.id.commentEditText);
-        Log.d("RAAAAAAAAAAAAAAAAAh", "huDDD");
         Bundle bundle = this.getIntent().getExtras();
         id = bundle.getString("id");
-        Log.d("RAAAAAAAAAAAAAAAAAh", id);
+        JSONObject jsono = interventionDAO.getInterventionById(id);
+        try {
+            if (jsono.getString("end").equals("null"))
+                hourEditText.setText("");
+            else
+                hourEditText.setText(jsono.getString("end").substring(11, 16));
+            priceEditText.setText(jsono.getString("cost"));
+            commentEditText.setText(jsono.getString("annotations"));
+            
+        } catch (JSONException ex) {
+            messageBox.Show("Erreur", "Impossible de récupérer les données sur le serveur", _this);
+        }
 
-        buttonIntervention.setOnClickListener(new View.OnClickListener()     {
+
+        buttonIntervention.setOnClickListener(new View.OnClickListener()      {
 
             public void onClick(View v) {
                 String cost = priceEditText.getText().toString();
@@ -55,16 +70,31 @@ public class InterventionActivity extends Activity {
                 if (cost.isEmpty() || comment.isEmpty() || hour.isEmpty()) {
                     messageBox.Show("Erreur", "Veuillez remplir tous les champs", _this);
                 } else {
-                    try {
-                        Integer testParse = Integer.parseInt(cost);
-                        interventionDAO.updateIntervention(id, cost, comment);
-                        Intent intent = new Intent();
-                        setResult(RESULT_OK, intent);
-                        finish();
-                    } catch (NumberFormatException nfe) {
-                        messageBox.Show("Erreur", "Veuillez un coût valide", _this);
+
+                    if (!hour.matches("[0-9]{1,2}:[0-9]{2}")) {
+                        messageBox.Show("Erreur", "Veuillez une heure valide (format XX:XX)", _this);
+                    } else {
+                        try {
+                            Integer.parseInt(cost);
+                            if(!interventionDAO.updateIntervention(id, cost, comment, hour))
+                                messageBox.Show("Erreur","Mise à jour impossible",_this);
+                            Intent intent = new Intent();
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        } catch (NumberFormatException nfe) {
+                            messageBox.Show("Erreur", "Veuillez un coût valide", _this);
+                        }
                     }
                 }
+            }
+        });
+        
+        buttonCancelIntervention.setOnClickListener(new View.OnClickListener()      {
+
+            public void onClick(View v) {
+                            Intent intent = new Intent();
+                            setResult(RESULT_OK, intent);
+                            finish();
             }
         });
 

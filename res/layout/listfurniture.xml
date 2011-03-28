@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : listfurniture.xml
+    Created on : 26 mars 2011, 15:38
+    Author     : jeremie
+    Description:
+        Purpose of the document follows.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+           
+    <ListView
+        android:id="@+id/listviewFurnitures"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+      />
+      
+    <Button android:id="@+id/buttonBack3"
+            android:text="Retour"
+            android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"/>
+              
+</LinearLayout>

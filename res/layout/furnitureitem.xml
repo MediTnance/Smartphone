@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : furnitureitem.xml
+    Created on : 26 mars 2011, 16:16
+    Author     : jeremie
+    Description:
+        Purpose of the document follows.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+            
+    <TextView android:id="@+id/clientFurnitureText"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="Matériels du client : " />
+            
+    <TextView android:id="@+id/typeFurnitureText"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="Type : " />
+              
+    <TextView android:id="@+id/verifFurnitureText"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="Vérification : " />
+              
+              
+    <TextView android:id="@+id/brandFurnitureText"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="Marque : " />
+              
+    <TextView android:id="@+id/refFurnitureText"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="Référence : " />
+              
+    <TextView android:id="@+id/lastFurnitureText"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="Dernière intervention : " />
+              
+</LinearLayout>

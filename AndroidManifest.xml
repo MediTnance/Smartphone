@@ -19,6 +19,8 @@
         <activity android:name="InterventionActivity"></activity>
         <activity android:name="PieceActivity"></activity>
         <activity android:name="MapRouteActivity"></activity>
+        <activity android:name="InterventionDetailedActivity"></activity>
+        <activity android:name="ListFurnitureActivity"></activity>
         
     </application>
 </manifest>

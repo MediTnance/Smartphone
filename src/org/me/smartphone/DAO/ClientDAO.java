@@ -4,6 +4,7 @@
  */
 package org.me.smartphone.DAO;
 
+import android.app.Activity;
 import android.util.Log;
 import java.util.ArrayList;
 import org.apache.http.NameValuePair;
@@ -20,26 +21,37 @@ import org.me.smartphone.webservice.Reseau;
  */
 public class ClientDAO {
 
-    private static final String TAG = "Debug of Meditnance Project";
-//    private MessageBox messageBox = new MessageBox();
+    Activity parent;
+
+    public ClientDAO(Activity p) {
+        parent = p;
+    }
 
     public JSONArray getClientByName(String firstName, String lastName) {
-        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair("firstName", firstName));
-        nameValuePairs.add(new BasicNameValuePair("lastName", lastName));
+        String result = null;
+        if (Reseau.ping("http://10.0.2.2")) {
+            ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+            nameValuePairs.add(new BasicNameValuePair("firstName", firstName));
+            nameValuePairs.add(new BasicNameValuePair("lastName", lastName));
 
-        String result = Reseau.webServiceResponse(nameValuePairs, "http://10.0.2.2/smartphone/clientDataManager/getClientByName.php");
+            result = Reseau.webServiceResponse(nameValuePairs, "http://10.0.2.2/smartphone/clientDataManager/getClientByName.php");
+//            if(result != null);
 
+            Reseau.WriteSettings(parent, result, "client.txt");
+        } else {
+            String match = "\"firstName\":\"" + firstName + "\",\"lastName\":\"" + lastName + "\"";
+            result = Reseau.ReadSettings(parent, "client.txt", match);
+        }
         //parse json data
         try {
             JSONArray jArray = new JSONArray(result);
             return jArray;
-        } catch (JSONException e) {
+        } catch (Exception e) {
             return null;
         }
     }
-    
-    public String getClientFullNameById(String id) {
+
+    public JSONObject getClientById(String id) {
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("id", id));
 
@@ -48,8 +60,24 @@ public class ClientDAO {
         //parse json data
         try {
             JSONArray jArray = new JSONArray(result);
-                JSONObject json_data = jArray.getJSONObject(0);
-                String fullname = json_data.getString("firstName") + " " + json_data.getString("lastName");
+            JSONObject jsono = jArray.getJSONObject(0);
+            return jsono;
+        } catch (JSONException e) {
+            return null;
+        }
+    }
+
+    public String getClientFullNameById(String id) {
+        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        nameValuePairs.add(new BasicNameValuePair("id", id));
+
+        String result = Reseau.webServiceResponse(nameValuePairs, "http://10.0.2.2/smartphone/clientDataManager/getClientFullNameById.php");
+
+        //parse json data
+        try {
+            JSONArray jArray = new JSONArray(result);
+            JSONObject json_data = jArray.getJSONObject(0);
+            String fullname = json_data.getString("firstName") + " " + json_data.getString("lastName");
             return fullname;
         } catch (JSONException e) {
             return null;

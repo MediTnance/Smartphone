@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : interventionDetailed.xml
+    Created on : 22 mars 2011, 23:41
+    Author     : jeremie
+    Description:
+        Purpose of the document follows.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+            
+    <TextView android:id="@+id/typeText"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:padding="3dip"
+              android:text="Type : " />
+
+    <TextView android:id="@+id/clientText"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:padding="3dip"
+              android:text="Client : " />
+              
+    <TextView android:id="@+id/employeeText"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:padding="3dip"
+              android:text="Employé : " />
+              
+    <TextView android:id="@+id/beginText"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:padding="3dip"
+              android:text="Date de début : " />
+          
+    <TextView android:id="@+id/endText"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:padding="3dip"
+              android:text="Date de fin : " />
+              
+    <TextView android:id="@+id/costText"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:padding="3dip"
+              android:text="Coût : " />
+              
+    <TextView android:id="@+id/annotationsText"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:padding="3dip"
+              android:text="Remarques : " />
+              
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    
+        <Button android:id="@+id/buttonFurnitureClient"
+                android:text="Matériel client"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        <Button android:id="@+id/buttonBack2"
+                android:text="Retour"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+                    
+    </LinearLayout>
+     
+</LinearLayout>
