@@ -16,7 +16,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.me.smartphone.application.GestionSmartphone;
-import org.me.smartphone.util.MessageBox;
 
 /**
  *
@@ -33,7 +32,6 @@ public class ListFurnitureActivity extends Activity {
     ListView furnituresList;
     Button buttonBack;
     GestionSmartphone smartphoneManager;
-    MessageBox messageBox = new MessageBox();
 
     /** Called when the activity is first created. */
     @Override
@@ -49,7 +47,7 @@ public class ListFurnitureActivity extends Activity {
         ArrayList<HashMap<String, String>> list = smartphoneManager.getFunituresByClient(clientId);
         
         if (list == null) {
-            messageBox.Show("Erreur", "Aucun matériel pour ce client", this);
+            smartphoneManager.showDialog("Erreur", "Aucun matériel pour ce client");
             finish();
         } else {
             SimpleAdapter mSchedule = new SimpleAdapter(getBaseContext(), list, R.layout.furnitureitem,

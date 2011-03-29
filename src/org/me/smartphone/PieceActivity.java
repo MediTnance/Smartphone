@@ -16,8 +16,7 @@ import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.me.smartphone.DAO.PieceDAO;
-import org.me.smartphone.util.MessageBox;
+import org.me.smartphone.application.GestionSmartphone;
 
 /**
  *
@@ -25,11 +24,9 @@ import org.me.smartphone.util.MessageBox;
  */
 public class PieceActivity extends Activity {
 
-    PieceDAO pieceDAO;
-    MessageBox messageBox = new MessageBox();
+    GestionSmartphone smartphoneManager;
     Button button;
     Spinner spinner;
-    Activity _this;
     int idOrder;
 
     /** Called when the activity is first created. */
@@ -38,11 +35,10 @@ public class PieceActivity extends Activity {
         super.onCreate(icicle);
         idOrder = 0;
         setContentView(R.layout.piece);
-        pieceDAO = new PieceDAO(this);
+        smartphoneManager = new GestionSmartphone(this);
         spinner = (Spinner) findViewById(R.id.spinnerPiece);
         button = (Button) findViewById(R.id.buttonCommand);
-        JSONArray res = pieceDAO.getAll();
-        _this = this;
+        JSONArray res = smartphoneManager.getAllPieces();
 
         if (res == null) {
             spinner.setEnabled(false);
@@ -64,7 +60,10 @@ public class PieceActivity extends Activity {
 
                 public void onClick(View v) {
                     idOrder++;
-                    pieceDAO.orderPiece(String.valueOf(idOrder)+ " " + spinner.getSelectedItem().toString());
+                    if(smartphoneManager.orderPiece(String.valueOf(idOrder)+ " " + spinner.getSelectedItem().toString()))
+                        smartphoneManager.showDialog("Ok", "Pièce commandée");
+                    else
+                        smartphoneManager.showDialog("Erreur", "Pas de réseau, la commande sera envoyée dès que le réseau sera disponible");
                 }
             });
         }

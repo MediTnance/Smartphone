@@ -5,9 +5,7 @@
 package org.me.smartphone;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -58,7 +56,7 @@ public class PlanningActivity extends Activity {
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dates);
-        adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         liste = (ListView) findViewById(R.id.listviewperso);
         
@@ -118,18 +116,5 @@ public class PlanningActivity extends Activity {
         Intent intent = new Intent(target.getContext(), InterventionDetailedActivity.class);
         intent.putExtras(bundle);
         startActivityForResult(intent, 0);
-    }
-
-    public void Show(String title, String message) {
-        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle(title);
-        alertDialog.setMessage(message);
-        alertDialog.setButton("OK", new DialogInterface.OnClickListener()     {
-
-            public void onClick(DialogInterface dialog, int which) {
-                // here you can add functions
-            }
-        });
-        alertDialog.show();
     }
 }

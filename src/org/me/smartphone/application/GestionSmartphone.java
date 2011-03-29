@@ -6,14 +6,10 @@ package org.me.smartphone.application;
 
 import android.app.Activity;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.TableRow;
-import android.widget.TextView;
 import java.util.Calendar;
-import java.util.List;
-import java.util.Vector;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
@@ -23,7 +19,8 @@ import org.me.smartphone.DAO.ClientDAO;
 import org.me.smartphone.DAO.EmployeeDAO;
 import org.me.smartphone.DAO.FurnitureDAO;
 import org.me.smartphone.DAO.InterventionDAO;
-import org.me.smartphone.R;
+import org.me.smartphone.DAO.PieceDAO;
+import org.me.smartphone.util.MessageBox;
 
 /**
  *
@@ -36,6 +33,8 @@ public class GestionSmartphone {
     private ClientDAO clientDAO;
     private EmployeeDAO employeeDAO;
     private FurnitureDAO furnitureDAO;
+    private PieceDAO pieceDAO;
+    MessageBox messageBox;
 
     public GestionSmartphone(Activity p) {
         parent = p;
@@ -43,6 +42,8 @@ public class GestionSmartphone {
         clientDAO = new ClientDAO(p);
         employeeDAO = new EmployeeDAO();
         furnitureDAO = new FurnitureDAO();
+        pieceDAO = new PieceDAO(p);
+        messageBox = new MessageBox();
     }
 
     public ArrayList<ArrayList<HashMap<String, String>>> calculerPlanning(Activity a) {
@@ -142,6 +143,14 @@ public class GestionSmartphone {
     public JSONObject getInterventionById(String id) {
         return this.interventionDAO.getInterventionById(id);
     }
+    
+    public JSONArray getInterventionsByDate(Date date) {
+        return this.interventionDAO.getInterventionsByDate(date);
+    }
+    
+    public boolean updateIntervention(String id, String cost, String comment, String hour) {
+        return this.interventionDAO.updateIntervention(id, cost, comment, hour);
+    }
 
     public JSONArray getClientByName(String firstName, String lastName) {
         return clientDAO.getClientByName(firstName, lastName);
@@ -149,6 +158,10 @@ public class GestionSmartphone {
 
     public JSONObject getClientById(String id) {
         return this.clientDAO.getClientById(id);
+    }
+    
+    public String getClientFullNameById(String id) {
+        return this.clientDAO.getClientFullNameById(id);
     }
 
     public ArrayList<HashMap<String, String>> getFunituresByClient(String clientId) {
@@ -181,7 +194,26 @@ public class GestionSmartphone {
         } else {
             return null;
         }
-        Log.d("RRRRRRRRRRRRRRRRRRRRRRRRRRR", "hu");
         return furnitures;
+    }
+    
+    public JSONArray getEmployeeByName(String firstName, String lastName) {
+        return this.employeeDAO.getEmployeeByName(firstName, lastName);
+    }
+    
+    public String getEmployeeFullNameById(String id) {
+        return this.employeeDAO.getEmployeeFullNameById(id);
+    }
+    
+    public JSONArray getAllPieces() {
+        return this.pieceDAO.getAll();
+    }
+    
+    public boolean orderPiece(String piece) {
+        return this.pieceDAO.orderPiece(piece);
+    }
+    
+    public void showDialog(String title, String message) {
+        messageBox.Show(title, message, parent);
     }
 }

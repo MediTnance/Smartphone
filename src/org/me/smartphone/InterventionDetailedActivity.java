@@ -15,8 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.me.smartphone.DAO.InterventionDAO;
-import org.me.smartphone.util.MessageBox;
+import org.me.smartphone.application.GestionSmartphone;
 
 /**
  *
@@ -34,15 +33,14 @@ public class InterventionDetailedActivity extends Activity {
     Button buttonBack;
     Button buttonFurnituresClient;
     String id;
-    InterventionDAO interventionDAO;
-    MessageBox messageBox = new MessageBox();
+    GestionSmartphone smartphoneManager;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.interventiondetailed);
-        interventionDAO = new InterventionDAO(this);
+        smartphoneManager = new GestionSmartphone(this);
         typeText = (TextView) findViewById(R.id.typeText);
         clientText = (TextView) findViewById(R.id.clientText);
         employeeText = (TextView) findViewById(R.id.employeeText);
@@ -55,7 +53,7 @@ public class InterventionDetailedActivity extends Activity {
 
         Bundle bundle = this.getIntent().getExtras();
         id = bundle.getString("id");
-        final JSONObject jsono = interventionDAO.getInterventionById(id);
+        final JSONObject jsono = smartphoneManager.getInterventionById(id);
 
         try {
             if (jsono.getString("end").equals("null")) {
@@ -77,7 +75,7 @@ public class InterventionDetailedActivity extends Activity {
             annotationsText.append(jsono.getString("annotations"));
 
         } catch (JSONException ex) {
-            messageBox.Show("Erreur", "Impossible de récupérer les données sur le serveur", this);
+            smartphoneManager.showDialog("Erreur", "Impossible de récupérer les données sur le serveur");
         }
 
         buttonBack.setOnClickListener(new View.OnClickListener()     {

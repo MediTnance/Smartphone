@@ -38,13 +38,14 @@ public class PieceDAO {
         }
     }
     
-    public void orderPiece(String piece) {
+    public boolean orderPiece(String piece) {
         String[] split = piece.split(" ");
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("piece", piece));
 //        nameValuePairs.add(new BasicNameValuePair("ref", split[1]));
-        if (Reseau.ping("http://192.168.1.1")) {
+        if (Reseau.ping("http://10.0.2.2")) {
         Reseau.webServiceResponse(nameValuePairs, "http://10.0.2.2/smartphone/pieceDataManager/sendPiece.php");
+            return true;
         } else {
             String data = "piece:" + piece + "\n";
             if (Reseau.WriteSettings(parent, data, "piece.txt")) {
@@ -56,6 +57,7 @@ public class PieceDAO {
                     }
                 }.start();
             }
+            return false;
         }
         
 //        try {

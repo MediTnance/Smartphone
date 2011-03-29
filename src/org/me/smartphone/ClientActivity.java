@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.me.smartphone.DAO.ClientDAO;
+import org.me.smartphone.application.GestionSmartphone;
 import org.me.smartphone.util.MessageBox;
 
 /**
@@ -34,14 +35,16 @@ public class ClientActivity extends Activity {
     TextView lastnameText;
     EditText lastnameEditText;
     LinearLayout main;
-    ClientDAO client = new ClientDAO(this);
-    MessageBox messageBox = new MessageBox();
+//    ClientDAO client = new ClientDAO(this);
+//    MessageBox messageBox = new MessageBox();
+    GestionSmartphone smartphoneManager;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.client);
+        smartphoneManager = new GestionSmartphone(this);
         main = (LinearLayout)findViewById(R.id.layout);
         this.firstnameText = (TextView) findViewById(R.id.firstnameText);
         this.firstnameEditText = (EditText) findViewById(R.id.fistnameEditText);
@@ -56,11 +59,11 @@ public class ClientActivity extends Activity {
                 String firstName = firstnameEditText.getText().toString();
                 String lastName = lastnameEditText.getText().toString();
                 if (firstName.equals("") || lastName.equals("")) {
-                    Show("Erreur", "Veuillez remplir tous les champs");
+                    smartphoneManager.showDialog("Erreur", "Veuillez remplir tous les champs");
                 } else {
-                    JSONArray res = client.getClientByName(firstName, lastName);
+                    JSONArray res = smartphoneManager.getClientByName(firstName, lastName);
                     if (res == null) {
-                        Show("Erreur", "Client inexistant");
+                        smartphoneManager.showDialog("Erreur", "Client inexistant");
                     } else {
                         String clientI = "";
                         try {
@@ -80,16 +83,16 @@ public class ClientActivity extends Activity {
         });
     }
 
-    public void Show(String title, String message) {
-        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle(title);
-        alertDialog.setMessage(message);
-        alertDialog.setButton("OK", new DialogInterface.OnClickListener()   {
-
-            public void onClick(DialogInterface dialog, int which) {
-                // here you can add functions
-            }
-        });
-        alertDialog.show();
-    }
+//    public void Show(String title, String message) {
+//        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+//        alertDialog.setTitle(title);
+//        alertDialog.setMessage(message);
+//        alertDialog.setButton("OK", new DialogInterface.OnClickListener()   {
+//
+//            public void onClick(DialogInterface dialog, int which) {
+//                // here you can add functions
+//            }
+//        });
+//        alertDialog.show();
+//    }
 }

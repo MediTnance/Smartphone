@@ -92,7 +92,7 @@ public class InterventionDAO {
             } else {
                 return false;
             }
-            return true;
+            return false;
         }
     }
 }

@@ -33,7 +33,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.me.smartphone.application.GestionSmartphone;
 import org.me.smartphone.application.Road;
@@ -52,8 +51,8 @@ public class MapRouteActivity extends MapActivity {
     Button buttonBack;
     private Road mRoad;
     double fromLat, fromLon;
-    MessageBox messageBox = new MessageBox();
-    private GestionSmartphone smartphoneManager;
+    String address = null;
+    GestionSmartphone smartphoneManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,41 +68,37 @@ public class MapRouteActivity extends MapActivity {
         String idInter = bundle.getString("id");
         JSONObject jsono = smartphoneManager.getInterventionById(idInter);
         JSONObject clientJSON = null;
-        String address = null;
+        
             clientJSON = smartphoneManager.getClientById(jsono.getString("client"));
             address = clientJSON.getString("address");
          } catch (Exception e) {
             Log.d("Erreur", "Impossible...");
         }
 
-//        new Thread()  {
-//
-//            @Override
-//            public void run() {
 
         try{
             LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//                fromLon = location.getLongitude();
-//                fromLat = location.getLatitude();
-            fromLon = 2.3;
-            fromLat = 48.83;
-
-            double toLat = 48.833, toLon = 2.333;
-//            Geocoder geo = new Geocoder(this, Locale.getDefault());
-//            Address clientAddress = geo.getFromLocationName("50 avenue de Stalingrad Villejuif, France",1).get(0);
-//            double toLat = clientAddress.getLatitude();
-//            double toLon = clientAddress.getLongitude();
+                
+            fromLon = location.getLongitude();
+            fromLat = location.getLatitude();
+//            fromLon = 2.3;
+//            fromLat = 48.83;
+//            double toLat = 48.833, toLon = 2.333;
+            
+            Geocoder geo = new Geocoder(this, Locale.getDefault());
+            Address clientAddress = geo.getFromLocationName(address,1).get(0);
+            double toLat = clientAddress.getLatitude();
+            double toLon = clientAddress.getLongitude();
+            
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListener);
             String url = RoadProvider.getUrl(fromLat, fromLon, toLat, toLon);
             InputStream is = getConnection(url);
             mRoad = RoadProvider.getRoute(is);
             mHandler.sendEmptyMessage(0);
         } catch (Exception e) {
-            messageBox.Show("Erreur", "Impossible d'atteindre le serveur", this);
+            smartphoneManager.showDialog("Erreur", "Impossible d'atteindre le serveur");
         }
-//            }
-//        }.start();
 
         buttonBack.setOnClickListener(new View.OnClickListener()    {
 

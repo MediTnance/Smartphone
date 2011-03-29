@@ -13,8 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.me.smartphone.DAO.InterventionDAO;
-import org.me.smartphone.util.MessageBox;
+import org.me.smartphone.application.GestionSmartphone;
 
 /**
  *
@@ -28,9 +27,7 @@ public class InterventionActivity extends Activity {
     EditText priceEditText;
     EditText commentEditText;
     String id = "";
-    private InterventionDAO interventionDAO;
-    MessageBox messageBox = new MessageBox();
-    Activity _this;
+    GestionSmartphone smartphoneManager;
 
     /** Called when the activity is first created. */
     @Override
@@ -38,8 +35,7 @@ public class InterventionActivity extends Activity {
         super.onCreate(icicle);
 
         setContentView(R.layout.intervention);
-        _this = this;
-        interventionDAO = new InterventionDAO(this);
+        smartphoneManager = new GestionSmartphone(this);
         buttonIntervention = (Button) findViewById(R.id.buttonIntervention);
         buttonCancelIntervention = (Button)findViewById(R.id.buttonCancelIntervention);
         hourEditText = (EditText) findViewById(R.id.hourEditText);
@@ -47,7 +43,7 @@ public class InterventionActivity extends Activity {
         commentEditText = (EditText) findViewById(R.id.commentEditText);
         Bundle bundle = this.getIntent().getExtras();
         id = bundle.getString("id");
-        JSONObject jsono = interventionDAO.getInterventionById(id);
+        JSONObject jsono = smartphoneManager.getInterventionById(id);
         try {
             if (jsono.getString("end").equals("null"))
                 hourEditText.setText("");
@@ -57,7 +53,7 @@ public class InterventionActivity extends Activity {
             commentEditText.setText(jsono.getString("annotations"));
             
         } catch (JSONException ex) {
-            messageBox.Show("Erreur", "Impossible de récupérer les données sur le serveur", _this);
+            smartphoneManager.showDialog("Erreur", "Impossible de récupérer les données sur le serveur");
         }
 
 
@@ -68,21 +64,21 @@ public class InterventionActivity extends Activity {
                 String comment = commentEditText.getText().toString();
                 String hour = hourEditText.getText().toString();
                 if (cost.isEmpty() || comment.isEmpty() || hour.isEmpty()) {
-                    messageBox.Show("Erreur", "Veuillez remplir tous les champs", _this);
+                    smartphoneManager.showDialog("Erreur", "Veuillez remplir tous les champs");
                 } else {
 
                     if (!hour.matches("[0-9]{1,2}:[0-9]{2}")) {
-                        messageBox.Show("Erreur", "Veuillez une heure valide (format XX:XX)", _this);
+                        smartphoneManager.showDialog("Erreur", "Veuillez une heure valide (format XX:XX)");
                     } else {
                         try {
                             Integer.parseInt(cost);
-                            if(!interventionDAO.updateIntervention(id, cost, comment, hour))
-                                messageBox.Show("Erreur","Mise à jour impossible",_this);
+                            if(!smartphoneManager.updateIntervention(id, cost, comment, hour))
+                                smartphoneManager.showDialog("Erreur", "Pas de réseau, les changements prendont effet dès que le réseau sera disponible");
                             Intent intent = new Intent();
                             setResult(RESULT_OK, intent);
                             finish();
                         } catch (NumberFormatException nfe) {
-                            messageBox.Show("Erreur", "Veuillez un coût valide", _this);
+                            smartphoneManager.showDialog("Erreur", "Veuillez un coût valide");
                         }
                     }
                 }
